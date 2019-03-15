@@ -1,20 +1,30 @@
 (function () {
 
-  var ImageFinder = window.CLASSES.ImageFinder = function () {};
+  const ImageFinder = function(initialModules) {
+    this.modules = new Map();
+    initialModules.forEach(this.addModule.bind(this));
+  };
 
-  ImageFinder.prototype.search = function (query) {
-    let images = DATA.staticImagesDb
-      .filter(image => image.title.includes(query))
-      .map(image => ({
-        id: image.id,
-        url: image.url,
-        title: image.title
-      }));
+  ImageFinder.prototype.search = function(query, searchModuleId) {
+    let module = getModule.call(this, searchModuleId);
+    if (!module) {
+      throw Error(`Module with id '${searchModuleId}' not found`);
+    }
 
     return {
       query,
-      images
+      images: module.search(query)
     };
+  };
+
+  ImageFinder.prototype.addModule = function(module) {
+    this.modules.set(module.id, module);
+    return this;
+  };
+
+  function getModule(id) {
+    return this.modules.get(id);
   }
 
+  window.CLASSES.ImageFinder = ImageFinder;
 })();

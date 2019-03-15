@@ -12,9 +12,10 @@
   /**
    * start a new search
    * @param {String} query - search term to look for
+   * @param {String} searchModuleId - id of the search module that wil be used with provided query
    */
-  Gallery.prototype.doSearch = function (query) {
-    var searchResults = this._imageFinder.search(query);
+  Gallery.prototype.doSearch = function (query, searchModuleId) {
+    var searchResults = this._imageFinder.search(query, searchModuleId);
     this._onSearchResultReady(searchResults);
   };
 
@@ -23,7 +24,7 @@
    */
   Gallery.prototype._onSearchButtonClick = function (e) {
     var query = this._queryInputNode.value;
-    this.doSearch(query);
+    this.doSearch(query, window.CLASSES.StaticDBSearchModule.id);
   };
 
   /**
