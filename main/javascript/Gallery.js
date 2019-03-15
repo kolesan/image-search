@@ -4,6 +4,7 @@
    * @param {ImageFinder} imageFinder
    */
   var Gallery = window.CLASSES.Gallery = function (imageFinder){
+    this.lastRequestId = 0;
     this._imageFinder = imageFinder;
     this._createInterface();
     this._setFunctionality();
@@ -15,9 +16,14 @@
    * @param {String} searchModuleId - id of the search module that wil be used with provided query
    */
   Gallery.prototype.doSearch = function (query, searchModuleId) {
-    this._imageFinder
-      .search(query, searchModuleId)
-        .then(results => this._onSearchResultReady(results));
+    let requestId = ++this.lastRequestId;
+
+    this._imageFinder.search(query, searchModuleId)
+      .then(results => {
+        if (requestId == this.lastRequestId) {
+          this._onSearchResultReady(results);
+        }
+      });
   };
 
   /**
