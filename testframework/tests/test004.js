@@ -1,6 +1,7 @@
 describe('Task 4 - Multiple requests', function(){
   
-  var taskDesc = '<p>Add functionality to your <code>search()</code> to be able to accept requests from multiple galleries and route the search results to the appropriate gallery instance.</p>' +
+  var taskDesc = '<p>Add functionality to your <code>search()</code> to be able to accept requests from multiple galleries ' +
+    'and route the search results to the appropriate gallery instance.</p>' +
       "<li><p><strong>Bonus</strong> - Add a second functioning gallery</p></li>";
 
   describe(taskDesc, function(){

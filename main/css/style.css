@@ -9,6 +9,9 @@
   left: 20px;
   top: 20px;
 }
+.gallery:first-child {
+  margin-bottom: 1rem;
+}
 
 .galleryItems {
   margin-top:25px;

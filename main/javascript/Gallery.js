@@ -15,8 +15,9 @@
    * @param {String} searchModuleId - id of the search module that wil be used with provided query
    */
   Gallery.prototype.doSearch = function (query, searchModuleId) {
-    var searchResults = this._imageFinder.search(query, searchModuleId);
-    this._onSearchResultReady(searchResults);
+    this._imageFinder
+      .search(query, searchModuleId)
+        .then(results => this._onSearchResultReady(results));
   };
 
   /**
@@ -24,7 +25,8 @@
    */
   Gallery.prototype._onSearchButtonClick = function (e) {
     var query = this._queryInputNode.value;
-    this.doSearch(query, window.CLASSES.StaticDBSearchModule.id);
+    var moduleId = this._moduleDropdownNode.value;
+    this.doSearch(query, moduleId);
   };
 
   /**
@@ -81,6 +83,19 @@
     this._searchBtnNode = document.createElement('button');
     this._searchBtnNode.innerHTML = 'search';
     this._controlsNode.appendChild(this._searchBtnNode);
+
+    this._moduleDropdownNode = document.createElement('select');
+    this._staticOptionNode = document.createElement('option');
+    this._staticOptionNode.setAttribute("value", "static");
+    this._staticOptionNode.innerHTML = 'static';
+    this._flickrOptionNode = document.createElement('option');
+    this._flickrOptionNode.setAttribute("value", "flickr");
+    this._flickrOptionNode.innerHTML = 'flickr';
+
+    this._moduleDropdownNode.appendChild(this._staticOptionNode);
+    this._moduleDropdownNode.appendChild(this._flickrOptionNode);
+
+    this._controlsNode.appendChild(this._moduleDropdownNode);
   };
 
 })();

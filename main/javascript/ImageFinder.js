@@ -11,10 +11,10 @@
       throw Error(`Module with id '${searchModuleId}' not found`);
     }
 
-    return {
-      query,
-      images: module.search(query)
-    };
+    return new Promise((resolve, reject) => {
+      module.search(query)
+        .then(images => resolve({query, images}));
+    });
   };
 
   ImageFinder.prototype.addModule = function(module) {

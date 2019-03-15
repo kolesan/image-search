@@ -26,8 +26,10 @@
     var DATA = {};
   </script>
 
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="../resources/static-images-db.js"></script>
   <script src="../javascript/StaticDBSearchModule.js"></script>
+  <script src="../javascript/FlickrSearchModule.js"></script>
   <script src="../javascript/ImageFinder.js"></script>
   <script src="../javascript/Gallery.js"></script>
 
@@ -35,13 +37,21 @@
     var GalleryClass = CLASSES['Gallery'];
     var ImageFinderClass = CLASSES['ImageFinder'];
     var StaticDBSearchModuleClass = CLASSES['StaticDBSearchModule'];
+    var FlickrSearchModuleClass = CLASSES['FlickrSearchModule'];
 
     var staticDBSearchModule = new StaticDBSearchModuleClass();
-    var imageFinder = new ImageFinderClass([staticDBSearchModule]);
+    var flickrSearchModule = new FlickrSearchModuleClass();
+    var imageFinder = new ImageFinderClass([
+      staticDBSearchModule,
+      flickrSearchModule
+    ]);
 
     window.onload = function() {
       var gallery = new GalleryClass(imageFinder);
+      var gallery2 = new GalleryClass(imageFinder);
+
       gallery.addToNode(document.body);
+      gallery2.addToNode(document.body);
 
       initiateTest();
     };
