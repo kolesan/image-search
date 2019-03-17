@@ -13,7 +13,8 @@
 
     return new Promise((resolve, reject) => {
       module.search(query)
-        .then(images => resolve({query, images}));
+        .then(images => resolve({query, images}))
+        .catch(error => reject(error));
     });
   };
 

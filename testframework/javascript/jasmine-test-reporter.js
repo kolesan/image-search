@@ -39,29 +39,8 @@ jasmine.TestReporter.prototype.reportRunnerStarting = function(runner) {
     console.log('reportRunnerStarting', runner);
 };
 
-function reportSpec(spec) {
-  console.log('Spec', spec.description);
-  console.log(spec);
-  console.log(`Results`);
-  Array.from(spec.results_).forEach(result => console.log(result));
-}
-
 jasmine.TestReporter.prototype.reportRunnerResults = function(runner) {
     console.log('reportRunnerResults', runner);
-    Array.from(runner.suites_).forEach(suite => {
-      console.log(`===============================`);
-      console.log(`===============================`);
-      console.log(`Suite`);
-      console.log(suite.description);
-      console.log(`Specs`);
-      Array.from(suite.specs_).forEach(reportSpec);
-      console.log(`Suites`);
-      Array.from(suite.suites_).forEach(suite => {
-        console.log(suite);
-        console.log(`Child specs`);
-        Array.from(suite.specs_).forEach(reportSpec);
-      });
-    });
     var tasks = runner.queue.blocks;
     for(var i = 0; i < tasks.length; ++i) {
         var task = tasks[i];
